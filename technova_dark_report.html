@@ -1,0 +1,284 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+.r{padding:1.25rem 0;font-family:var(--font-sans);color:#E8E6F0;}
+.card{background:#1E1B2E;border:0.5px solid #3C3460;border-radius:var(--border-radius-lg);padding:1.25rem 1.5rem;margin-bottom:1rem;}
+.card-sm{background:#1E1B2E;border:0.5px solid #3C3460;border-radius:var(--border-radius-md);padding:12px 14px;margin-bottom:8px;}
+.report-header{background:#16132A;border:0.5px solid #534AB7;border-radius:var(--border-radius-lg);padding:1.25rem 1.5rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.brand-eyebrow{font-size:12px;font-weight:500;color:#AFA9EC;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;}
+.brand-name{font-size:20px;font-weight:500;color:#EEEDFE;}
+.brand-meta{font-size:13px;color:#7F77DD;margin-top:3px;}
+.header-badge{background:#3C3489;color:#CECBF6;border-radius:999px;padding:6px 14px;font-size:12px;font-weight:500;white-space:nowrap;}
+.score-block{background:#16132A;border:0.5px solid #EF9F27;border-radius:var(--border-radius-lg);padding:1.25rem 1.5rem;margin-bottom:1rem;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;}
+.dial{width:96px;height:96px;border-radius:50%;background:#2A1F06;border:3px solid #EF9F27;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;}
+.dial-n{font-size:32px;font-weight:500;color:#FAC775;line-height:1;}
+.dial-d{font-size:12px;color:#BA7517;margin-top:3px;}
+.score-title{font-size:18px;font-weight:500;color:#EEEDFE;margin-bottom:5px;}
+.score-sub{font-size:13px;color:#AFA9EC;line-height:1.55;}
+.bar-bg{height:8px;background:#2C2C2A;border-radius:999px;overflow:hidden;margin-top:8px;}
+.bar-fill{height:100%;width:38%;background:#EF9F27;border-radius:999px;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:1rem;}
+.kpi{background:#1A1730;border:0.5px solid #3C3460;border-radius:var(--border-radius-md);padding:14px 10px;text-align:center;}
+.kpi-icon{font-size:20px;margin-bottom:5px;}
+.kpi-val{font-size:20px;font-weight:500;color:#EEEDFE;}
+.kpi-lbl{font-size:11px;color:#7F77DD;margin-top:3px;}
+.sec-label{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:500;color:#AFA9EC;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;}
+.sec-label i{font-size:15px;color:#7F77DD;}
+.divider{border:none;border-top:0.5px solid #2E2A4A;margin:1.25rem 0;}
+.flag-row{display:flex;gap:12px;align-items:flex-start;}
+.flag-sev{display:flex;flex-direction:column;align-items:center;gap:3px;flex-shrink:0;min-width:44px;}
+.sev-num{font-size:22px;font-weight:500;}
+.sev-lbl{font-size:10px;color:#7F77DD;}
+.flag-body{}
+.flag-title{font-size:14px;font-weight:500;color:#EEEDFE;margin-bottom:3px;}
+.flag-desc{font-size:13px;color:#AFA9EC;line-height:1.55;}
+.ftag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:2px 9px;border-radius:999px;margin-top:6px;}
+.ftag-high{background:#2A0D0D;color:#F09595;}
+.ftag-med{background:#2A1F06;color:#FAC775;}
+.ftag-low{background:#0D1F08;color:#97C459;}
+.pos-list{display:flex;flex-direction:column;gap:8px;}
+.pos-row{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#C8C4E0;line-height:1.55;}
+.pos-icon{color:#5DCAA5;font-size:16px;flex-shrink:0;margin-top:2px;}
+.rtable{width:100%;border-collapse:collapse;font-size:14px;table-layout:fixed;}
+.rtable th{text-align:left;font-size:12px;font-weight:500;color:#7F77DD;padding:8px 12px;border-bottom:0.5px solid #2E2A4A;}
+.rtable td{padding:10px 12px;border-bottom:0.5px solid #2E2A4A;color:#C8C4E0;vertical-align:middle;}
+.rtable tr:last-child td{border-bottom:none;}
+.rpill{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;padding:3px 10px;border-radius:999px;}
+.rpill-low{background:#0D1F08;color:#97C459;}
+.rpill-med{background:#2A1F06;color:#FAC775;}
+.rpill-high{background:#2A0D0D;color:#F09595;}
+.rdot{width:7px;height:7px;border-radius:50%;display:inline-block;}
+.dot-low{background:#5DCAA5;}
+.dot-med{background:#EF9F27;}
+.dot-high{background:#E24B4A;}
+.verdict-card{border-radius:var(--border-radius-lg);padding:1.25rem 1.5rem;border:0.5px solid #BA7517;background:#2A1F06;margin-bottom:1rem;display:flex;gap:16px;align-items:flex-start;}
+.v-icon{font-size:28px;flex-shrink:0;}
+.v-eyebrow{font-size:12px;font-weight:500;color:#BA7517;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
+.v-title{font-size:18px;font-weight:500;color:#FAC775;margin-bottom:6px;}
+.v-desc{font-size:14px;color:#D4B87A;line-height:1.6;}
+.q-list{display:flex;flex-direction:column;gap:8px;}
+.q-row{background:#1A1730;border:0.5px solid #3C3460;border-radius:var(--border-radius-md);padding:12px 14px;display:flex;gap:12px;align-items:flex-start;}
+.q-num{width:24px;height:24px;border-radius:50%;background:#26215C;color:#CECBF6;font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.q-text{font-size:14px;color:#C8C4E0;line-height:1.5;}
+.q-tag-lbl{font-size:11px;color:#534AB7;margin-top:4px;}
+.rec-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+.rec-card{background:#1A1730;border:0.5px solid #3C3460;border-radius:var(--border-radius-md);padding:14px;}
+.rec-icon{font-size:20px;margin-bottom:8px;}
+.rec-title{font-size:13px;font-weight:500;color:#EEEDFE;margin-bottom:4px;}
+.rec-desc{font-size:13px;color:#7F77DD;line-height:1.5;}
+.footer{margin-top:1.25rem;padding:12px 16px;background:#16132A;border:0.5px solid #2E2A4A;border-radius:var(--border-radius-md);font-size:12px;color:#534AB7;text-align:center;line-height:1.5;}
+</style>
+
+<div class="r">
+  <h2 class="sr-only">Dark-theme job risk report — TechNova Solutions Java Developer Intern — overall risk 38/100, apply with caution.</h2>
+
+  <div class="report-header">
+    <div>
+      <div class="brand-eyebrow">📊 Job risk intelligence report</div>
+      <div class="brand-name">TechNova Solutions</div>
+      <div class="brand-meta">Java Developer Intern · Remote / Hybrid · 3–6 months · ₹10k–₹20k/mo</div>
+    </div>
+    <span class="header-badge">⚠️ Moderate risk</span>
+  </div>
+
+  <div class="score-block">
+    <div class="dial">
+      <span class="dial-n">38</span>
+      <span class="dial-d">/ 100</span>
+    </div>
+    <div>
+      <div class="score-title">Overall risk score — moderate</div>
+      <div class="score-sub">A largely clean internship posting with no hustle culture or experience inflation. Main concerns: below-market stipend, vague hybrid policy, and low company verifiability.</div>
+      <div class="bar-bg"><div class="bar-fill"></div></div>
+    </div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-icon">🚩</div><div class="kpi-val">5</div><div class="kpi-lbl">Red flags found</div></div>
+    <div class="kpi"><div class="kpi-icon">✅</div><div class="kpi-val">6</div><div class="kpi-lbl">Positive signals</div></div>
+    <div class="kpi"><div class="kpi-icon">🟡</div><div class="kpi-val">3</div><div class="kpi-lbl">Medium-risk areas</div></div>
+    <div class="kpi"><div class="kpi-icon">🟢</div><div class="kpi-val">2</div><div class="kpi-lbl">Low-risk areas</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="sec-label"><i class="ti ti-alert-triangle" aria-hidden="true"></i> 🚨 Top red flags</div>
+
+  <div class="card-sm">
+    <div class="flag-row">
+      <div class="flag-sev"><span class="sev-num" style="color:#F09595;">6</span><span class="sev-lbl">severity</span></div>
+      <div class="flag-body">
+        <div class="flag-title">Below-market stipend</div>
+        <div class="flag-desc">₹10,000–₹20,000/month is thin for a software internship in India, especially if hybrid attendance is required. The lower end barely covers commuting and meals in any metro city.</div>
+        <span class="ftag ftag-high">🔴 High concern</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-sm">
+    <div class="flag-row">
+      <div class="flag-sev"><span class="sev-num" style="color:#FAC775;">5</span><span class="sev-lbl">severity</span></div>
+      <div class="flag-body">
+        <div class="flag-title">Ambiguous Remote / Hybrid policy</div>
+        <div class="flag-desc">No clarity on in-office frequency, city, or travel reimbursement. "Remote / Hybrid" without specifics is a common bait-and-switch for interns.</div>
+        <span class="ftag ftag-med">🟡 Medium concern</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-sm">
+    <div class="flag-row">
+      <div class="flag-sev"><span class="sev-num" style="color:#FAC775;">5</span><span class="sev-lbl">severity</span></div>
+      <div class="flag-body">
+        <div class="flag-title">Low company verifiability</div>
+        <div class="flag-desc">TechNova Solutions has minimal public presence — no Glassdoor reviews, thin LinkedIn footprint, no client or product names cited. Hard to assess real stability.</div>
+        <span class="ftag ftag-med">🟡 Medium concern</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-sm">
+    <div class="flag-row">
+      <div class="flag-sev"><span class="sev-num" style="color:#FAC775;">4</span><span class="sev-lbl">severity</span></div>
+      <div class="flag-body">
+        <div class="flag-title">No full-time conversion pathway stated</div>
+        <div class="flag-desc">"3–6 months" with zero mention of PPO, performance review, or extension criteria. Could be a genuine pipeline or cheap labour rotation — needs direct clarification.</div>
+        <span class="ftag ftag-med">🟡 Medium concern</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-sm">
+    <div class="flag-row">
+      <div class="flag-sev"><span class="sev-num" style="color:#97C459;">3</span><span class="sev-lbl">severity</span></div>
+      <div class="flag-body">
+        <div class="flag-title">Frontend scope creep in a Java role</div>
+        <div class="flag-desc">HTML, CSS, and JS listed as requirements for a "Java Developer" intern. Minor overlap is normal but signals possible multi-hat expectations without role clarity.</div>
+        <span class="ftag ftag-low">🟢 Low concern</span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="sec-label"><i class="ti ti-circle-check" aria-hidden="true"></i> ✅ Positive signals</div>
+  <div class="pos-list">
+    <div class="pos-row"><i class="ti ti-circle-check pos-icon" aria-hidden="true"></i><span>Stipend stated upfront — no bait-and-switch on compensation, range is transparent from day one.</span></div>
+    <div class="pos-row"><i class="ti ti-circle-check pos-icon" aria-hidden="true"></i><span>Requirements match intern level — no demand for 3+ years of experience or senior-level certifications in a fresher role.</span></div>
+    <div class="pos-row"><i class="ti ti-circle-check pos-icon" aria-hidden="true"></i><span>Structured mentorship implied — "collaborate with senior developers" signals real supervision, not solo grunt work.</span></div>
+    <div class="pos-row"><i class="ti ti-circle-check pos-icon" aria-hidden="true"></i><span>Preferred qualifications clearly separated and marked optional — no hard gate-keeping on Spring Boot or REST APIs.</span></div>
+    <div class="pos-row"><i class="ti ti-circle-check pos-icon" aria-hidden="true"></i><span>Zero toxic culture language — no "rockstar," "hustle," "fast-paced grind," or "wear many hats" anywhere in the posting.</span></div>
+    <div class="pos-row"><i class="ti ti-circle-check pos-icon" aria-hidden="true"></i><span>Code reviews and team discussions called out explicitly — points to a collaborative engineering culture.</span></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="sec-label"><i class="ti ti-table" aria-hidden="true"></i> 📋 Risk breakdown</div>
+  <div class="card" style="padding:0;overflow:hidden;">
+    <table class="rtable">
+      <thead>
+        <tr>
+          <th style="width:32%;">Category</th>
+          <th style="width:24%;">Risk level</th>
+          <th>Key finding</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><i class="ti ti-list-check" aria-hidden="true" style="font-size:14px;vertical-align:-2px;margin-right:6px;color:#7F77DD;"></i>Requirements</td>
+          <td><span class="rpill rpill-low"><span class="rdot dot-low"></span>🟢 Low</span></td>
+          <td style="font-size:13px;color:#7F77DD;">Realistic for a fresher; optional qualifications well-marked</td>
+        </tr>
+        <tr>
+          <td><i class="ti ti-users" aria-hidden="true" style="font-size:14px;vertical-align:-2px;margin-right:6px;color:#7F77DD;"></i>Culture</td>
+          <td><span class="rpill rpill-low"><span class="rdot dot-low"></span>🟢 Low</span></td>
+          <td style="font-size:13px;color:#7F77DD;">No burnout signals; structured learning tone throughout</td>
+        </tr>
+        <tr>
+          <td><i class="ti ti-wifi" aria-hidden="true" style="font-size:14px;vertical-align:-2px;margin-right:6px;color:#7F77DD;"></i>Remote authenticity</td>
+          <td><span class="rpill rpill-med"><span class="rdot dot-med"></span>🟡 Medium</span></td>
+          <td style="font-size:13px;color:#7F77DD;">"Remote / Hybrid" unspecified — verify office days and location</td>
+        </tr>
+        <tr>
+          <td><i class="ti ti-briefcase" aria-hidden="true" style="font-size:14px;vertical-align:-2px;margin-right:6px;color:#7F77DD;"></i>Hiring practices</td>
+          <td><span class="rpill rpill-med"><span class="rdot dot-med"></span>🟡 Medium</span></td>
+          <td style="font-size:13px;color:#7F77DD;">No conversion path stated; stipend range wide without criteria</td>
+        </tr>
+        <tr>
+          <td><i class="ti ti-building" aria-hidden="true" style="font-size:14px;vertical-align:-2px;margin-right:6px;color:#7F77DD;"></i>Company stability</td>
+          <td><span class="rpill rpill-med"><span class="rdot dot-med"></span>🟡 Medium</span></td>
+          <td style="font-size:13px;color:#7F77DD;">50–200 employees, limited public footprint, no client references</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider">
+
+  <div class="sec-label"><i class="ti ti-target" aria-hidden="true"></i> 🎯 Final verdict</div>
+  <div class="verdict-card">
+    <div class="v-icon">⚠️</div>
+    <div>
+      <div class="v-eyebrow">Recommendation</div>
+      <div class="v-title">Apply with caution</div>
+      <div class="v-desc">This is a legitimate-looking internship for a Java fresher — clean requirements, no culture red flags, and transparent pay. Before accepting: get hybrid arrangement in writing, clarify the stipend band criteria, and verify TechNova via LinkedIn employee searches or past intern references.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="sec-label"><i class="ti ti-bulb" aria-hidden="true"></i> 💡 Smart interview questions</div>
+  <div class="q-list">
+    <div class="q-row">
+      <div class="q-num">1</div>
+      <div><div class="q-text">Can you clarify what "Remote / Hybrid" means in practice — how many days in-office per week, and is there a specific city you'd expect me to be based in?</div><div class="q-tag-lbl">Targets: remote authenticity risk</div></div>
+    </div>
+    <div class="q-row">
+      <div class="q-num">2</div>
+      <div><div class="q-text">What does the stipend evaluation look like — is the ₹10k–₹20k range determined at offer stage, or reviewed mid-internship based on performance?</div><div class="q-tag-lbl">Targets: compensation clarity risk</div></div>
+    </div>
+    <div class="q-row">
+      <div class="q-num">3</div>
+      <div><div class="q-text">Do interns typically receive a pre-placement offer or contract extension at the end of 3–6 months, and what does that evaluation process look like?</div><div class="q-tag-lbl">Targets: conversion pathway risk</div></div>
+    </div>
+    <div class="q-row">
+      <div class="q-num">4</div>
+      <div><div class="q-text">Can you share examples of projects previous interns have shipped — were they client-facing, internal tools, or primarily learning exercises?</div><div class="q-tag-lbl">Targets: company verifiability + learning value</div></div>
+    </div>
+    <div class="q-row">
+      <div class="q-num">5</div>
+      <div><div class="q-text">Who would be my primary mentor, and how is structured feedback typically given — weekly 1:1s, code reviews, or ad-hoc check-ins?</div><div class="q-tag-lbl">Targets: mentorship quality signal</div></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="sec-label"><i class="ti ti-trending-up" aria-hidden="true"></i> 📈 Career recommendations</div>
+  <div class="rec-grid">
+    <div class="rec-card">
+      <div class="rec-icon">🔍</div>
+      <div class="rec-title">Verify the company first</div>
+      <div class="rec-desc">Search TechNova Solutions on LinkedIn — check employee tenure and look for past interns you can message for an honest experience review before accepting.</div>
+    </div>
+    <div class="rec-card">
+      <div class="rec-icon">📝</div>
+      <div class="rec-title">Get work-mode in writing</div>
+      <div class="rec-desc">Request the offer letter specify exact remote vs in-office expectations. Verbal "mostly remote" assurances have a history of quietly changing post-joining.</div>
+    </div>
+    <div class="rec-card">
+      <div class="rec-icon">💰</div>
+      <div class="rec-title">Negotiate to the upper band</div>
+      <div class="rec-desc">If you have relevant projects or prior experience, ask for ₹18k–₹20k upfront. Wide ranges usually signal negotiation room was intentionally built in.</div>
+    </div>
+    <div class="rec-card">
+      <div class="rec-icon">🚀</div>
+      <div class="rec-title">Use it to build portfolio</div>
+      <div class="rec-desc">Treat this as a Spring Boot and REST API crash course. Document your work on GitHub — that portfolio will outlast the internship regardless of conversion outcome.</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <i class="ti ti-info-circle" aria-hidden="true" style="font-size:14px;vertical-align:-2px;margin-right:4px;"></i>
+    Analysis based on the information provided. Always supplement with independent research before making a final decision.
+  </div>
+</div>
